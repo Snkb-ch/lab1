@@ -1,0 +1,178 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+
+    public class Queue
+    {
+        public int _Front = 0;
+        public int _Rear = -1;
+        
+
+        public List<int> A = new List<int>() { };
+
+
+        public Queue sort3(Queue A)
+        {
+            for (int i = 1; i <= _Rear; i++)
+            {
+
+                if (A.Get(A, i) < A.Get(A, i - 1))
+                {
+
+                    int temp = A.Get(A, i);
+                    int j = i - 1;
+
+                    int low = 0;
+
+                    int high = i - 1;
+
+                    while (low <= high)
+                    {
+                        int mid = (low + high) / 2;
+                        if (temp < A.Get(A, mid))
+                        {
+                            high = mid - 1;
+                        }
+                        else
+                        {
+                            low = mid + 1;
+                        }
+                    }
+
+                    for (; j >= high + 1; j--)
+                    {
+                        Set(Get(A, j), A, j + 1);
+                    }
+                    Set(temp, A, high + 1);
+                }
+            }
+            return A;
+        }
+
+
+
+        public int Get(Queue A, int index)
+        {
+
+            
+
+
+
+            for (int j = _Front; (j < index); j++)
+            {
+
+                Enqueue(Dequeue());
+            }
+            int t = Dequeue();
+            Enqueue(t);
+            for (int j = index; j < _Rear; j++)
+            {
+                Enqueue(Dequeue());
+            }
+            return t;
+        }
+        public void Set(int x, Queue A, int index)
+        {
+            for (int j = _Front; (j < index); j++)
+            {
+
+                Enqueue(Dequeue());
+            }
+            int t = Dequeue();
+            Enqueue(x);
+
+            for (int j = index; j < _Rear; j++)
+            {
+                Enqueue(Dequeue());
+            }
+
+        }
+
+
+
+       
+
+        public void Enqueue(int Item)
+        {
+
+            A.Add(Item);
+            _Rear++;
+            
+        }
+
+        public int Dequeue()
+        {
+            
+            int value = A[_Front];
+            A.RemoveAt(_Front);
+            _Rear -= 1;
+
+            
+
+            return value;
+        }
+        public int Peek()
+        {
+            
+
+            int value = A[_Front];
+            return value;
+        }
+        public void showall(Queue A)
+        {
+            
+            for (int i = _Front; i <= _Rear; i++)
+            {
+                Console.WriteLine(Get(A,i));
+
+
+
+            }
+        }
+        class Program
+        {
+            static void Main(string[] args)
+            {
+
+
+                Queue q = new Queue();
+
+
+                int a = 3;
+
+                while (a > 0)
+                {
+                    Console.WriteLine("1 - Enqueue");
+                    Console.WriteLine("2 - Dequeue ");
+                    Console.WriteLine("0 - exit and sort");
+                    a = Int32.Parse(Console.ReadLine());
+                    if (a == 1)
+                    {
+                        Console.WriteLine("Enter value");
+                        q.Enqueue(Int32.Parse(Console.ReadLine()));
+                    }
+                    if (a == 2)
+                    {
+                        q.Dequeue();
+                    }
+                    Console.WriteLine("Result:");
+                    q.showall(q);
+
+
+                }
+
+                q.sort3(q);
+                Console.WriteLine("");
+                q.showall(q);
+                Console.ReadKey();
+            }
+        }
+    }
+}
+
+ 
